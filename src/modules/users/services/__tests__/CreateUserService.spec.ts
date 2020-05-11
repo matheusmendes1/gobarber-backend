@@ -1,9 +1,9 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
+import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 
-import CreateUserService from './CreateUserService';
+import CreateUserService from '../CreateUserService';
 
 describe('CreateUser', () => {
   it('should be able to create a new user', async () => {
@@ -33,7 +33,7 @@ describe('CreateUser', () => {
       password: 'apassword',
     });
 
-    expect(
+    await expect(
       createUser.execute({
         name: 'John Lenny',
         email: 'johndoe@example.com',
