@@ -4,16 +4,21 @@ import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 
 import UpdateUserAvatarService from '../UpdateUserAvatarService';
 
-describe('UpdateUserAvatar', () => {
-  it('should be able to update avatar', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
+let fakeUsersRepository: FakeUsersRepository;
+let storageProvider: FakeStorageProvider;
+let updateUserAvatar: UpdateUserAvatarService;
 
-    const updateUserAvatar = new UpdateUserAvatarService(
+describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    storageProvider = new FakeStorageProvider();
+    updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
       storageProvider,
     );
+  });
 
+  it('should be able to update avatar', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -29,14 +34,6 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('should not be able to update avatar without a user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      fakeUsersRepository,
-      storageProvider,
-    );
-
     await expect(
       updateUserAvatar.execute({
         user_id: 'no_id',
@@ -46,16 +43,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('should delete old avatar when updating new one', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
-
     const deleteFile = jest.spyOn(storageProvider, 'deleteFile');
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      fakeUsersRepository,
-      storageProvider,
-    );
-
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
