@@ -44,9 +44,6 @@ class ListProviderAppointmentsService {
         },
       );
 
-      // eslint-disable-next-line no-console
-      console.log('Buscou do banco');
-
       await this.cacheProvider.save(cacheKey, appointments);
     }
 

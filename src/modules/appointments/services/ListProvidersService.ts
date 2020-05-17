@@ -28,9 +28,6 @@ class ListProvidersService {
         except_user_id: user_id,
       });
 
-      // eslint-disable-next-line no-console
-      console.log('A query no banco foi feita!');
-
       await this.cacheProvider.save(`providers-list:${user_id}`, users);
     }
 
