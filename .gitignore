@@ -1,5 +1,5 @@
 node_modules/
-/coverage/
+coverage/
 tmp/*
 !tmp/.gitkeep
 .env
