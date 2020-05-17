@@ -1,5 +1,6 @@
 export default interface ICacheProvider {
-  save(key: string, value: string): Promise<void>;
-  recover(key: string): Promise<string | null>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  save(key: string, value: any): Promise<void>;
+  recover<T>(key: string): Promise<T | null>;
   invalidate(key: string): Promise<void>;
 }
