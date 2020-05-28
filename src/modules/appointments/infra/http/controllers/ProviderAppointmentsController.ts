@@ -7,7 +7,7 @@ import { classToClass } from 'class-transformer';
 export default class ProviderAppointmentsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { day, month, year } = request.query;
-    const { provider_id } = request.params;
+    const provider_id = request.user.id;
 
     const listProviderAppointments = container.resolve(
       ListProviderAppointmentsService,
